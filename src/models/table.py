@@ -1,0 +1,1 @@
+# dataclass tabella + riassunto arricchito
