@@ -1,6 +1,7 @@
-# chiamate a basso livello per generare gli embedding
 from ollama import embed
 from functools import lru_cache
+from utils.config import config
+
 
 class EmbeddingError(Exception):
     """Error during embedding generation."""
@@ -8,8 +9,9 @@ class EmbeddingError(Exception):
         self.message = message
         super().__init__(self.message)
 
+
 @lru_cache(maxsize=1000)
-def get_embedding(message: str, model: str = 'mxbai-embed-large:latest') -> list[float]:
+def get_embedding(message: str, model: str = config.embedding.model) -> list[float]:
     if not isinstance(message, str):
         raise ValueError("Message must be a string.")
     if not message.strip():

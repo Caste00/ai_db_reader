@@ -1,9 +1,11 @@
 import sqlite3
 from pathlib import Path
+from utils.config import config
 
-BASE_DIR = Path(__file__).resolve().parent
-DB_PATH = BASE_DIR / "database.db"
-SCHEMA_PATH = BASE_DIR / "schema.sql"
+
+DB_PATH = Path(config.database.sqlite_path).resolve()
+SCHEMA_PATH = Path(__file__).resolve().parent / "schema.sql"
+
 
 def get_connection(db_path: str = DB_PATH):
     conn = sqlite3.connect(db_path)

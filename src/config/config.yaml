@@ -1,1 +1,15 @@
-# provider LLM attivo, path db, top-k retrieval
+llm: 
+  provider: ollama
+  model: modello1:latest
+  ollama_host: https://localhost:11434
+
+embedding: 
+  provider: ollama
+  model: mxbai-embed-large:latest
+
+vector_store:
+  path: ./rag/chroma_db
+  top_k: 5
+
+database: 
+  sqlite_path: ./memory/database.db

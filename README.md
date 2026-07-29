@@ -1,3 +1,10 @@
+## PROSSIMI PASSI
+1) fare la parte per estrarre le configurazioni dal documento 
+2) database sqlite
+3) database chormadb
+4) funzioni cosine_similarity
+
+
 ## STRUTTURA DEL PROGETTO
 
 ```
