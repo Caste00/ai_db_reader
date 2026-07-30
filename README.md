@@ -126,3 +126,6 @@ Test automatici (unit test su validator, retriever, ecc.). Da popolare.
 ## EXTRA
 * Creare una tabella e il sistema per estrarre i dati con i permessi degli utenti rispetto alle tabelle del database
 * Durante la query_validation controllare se l'utente ha il permesso di vedere i dati di una certa tabella
+* Cambiare la parte llm/ollama -> generate, invece che importarlo da li devo fare come ho fatto per i database in modo da poter usare altre fonti senza modificare il codice, implementare un' interfaccia comune 
+* Interfaccia grafica online (il server che ospita ollama mette in rete anche un'interfaccia web per interagire con l'ia)
+* In build_schema_context posso usare la distanza per scartare le tabelle pescate non pertinenti, sotto una certa soglia le scarto automaticamente

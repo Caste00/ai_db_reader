@@ -1,6 +1,6 @@
 llm: 
   provider: ollama
-  model: modello1:latest
+  model: qwen2.5-coder:3b
   ollama_host: https://localhost:11434
 
 embedding: 

@@ -4,12 +4,12 @@ from models.table_schemas import TableSchema
 
 
 def _build_schema_object(table_name: str, connector) -> tuple[TableSchema, list[ColumnSchema]]:
-    raw = connector.get_table_schema(table_name)
+    raw = connector.get_table_schemas(table_name)
 
     table_schema = TableSchema(
         table_name = table_name,
         description = "",
-        columns = [col["name"] for col in raw["columns"]]
+        columns = [col["name"] for col in raw["columns"]],
         foreign_keys = raw["foreign_keys"],
     )
 

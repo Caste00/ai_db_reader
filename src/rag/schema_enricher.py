@@ -10,12 +10,12 @@ Columns: {columns}
 Foreign key: {foreign_keys}
 
 Respond ONLY with a valid JSON in this format, nothing else (no markdown, no text outside the JSON):
-{
+{{
   "table_description": "...",
-  "columns": {
-    "column_name": {"description": "...", "synonyms": ["...", "..."]}
-  }
-}
+  "columns": {{
+    "column_name": {{"description": "...", "synonyms": ["...", "..."]}}
+  }}
+}}
 """
 
 def enrich_table(table_schema: TableSchema, column_schemas: list[ColumnSchema]) -> tuple[TableSchema, list[ColumnSchema]]:
@@ -35,9 +35,6 @@ def enrich_table(table_schema: TableSchema, column_schemas: list[ColumnSchema]) 
         return table_schema, column_schemas
 
     table_schema.description = enriched.get("table_description", "")
-
-    # TODO remove this row
-    print(enriched)
 
     columns_data = enriched.get("columns", {})
     for column in column_schemas:

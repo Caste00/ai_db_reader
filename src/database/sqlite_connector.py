@@ -22,7 +22,7 @@ class SQLiteConnector(DatabaseConnector):
 
         return [row["name"] for row in cursor.fetchall()]
 
-    def get_table_schema(self, table_name: str) -> dict:
+    def get_table_schemas(self, table_name: str) -> dict:
         columns = [
             {"name": row["name"], "type": row["type"]}
             for row in self.conn.execute(f"PRAGMA table_info({table_name})")
