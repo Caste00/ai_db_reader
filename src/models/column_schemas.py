@@ -7,6 +7,7 @@ class ColumnSchema:
     column_name: str
     description: str
     data_type: str = ""
+    synonyms: Optional[list[str]] = None
     embedding: Optional[list[float]] = None
     distance: Optional[float] = None
 
@@ -19,6 +20,7 @@ class ColumnSchema:
             "table_name": self.table_name,
             "column_name": self.column_name,
             "data_type": self.data_type,
+            "synonyms": self.synonyms
         }
         return self.id, self.description, self.embedding, metadata
 

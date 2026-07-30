@@ -1,6 +1,6 @@
 from pathlib import Path
 import yaml
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 CONFIG_PATH = Path(__file__).resolve().parent.parent / "config" / "config.yaml"
 
@@ -15,16 +15,21 @@ class EmbeddingConfig(BaseModel):
 
 class VectorStoreConfig(BaseModel):
     path: str
-    top_k: 5
+    top_k: int
 
 class DatabaseConfig(BaseModel):
     sqlite_path: str
+
+class TargetDatabaseConfig(BaseModel):
+    model_config = ConfigDict(extra="allow")   
+    type: str
 
 class AppConfig(BaseModel):
     llm: LLMConfig
     embedding: EmbeddingConfig
     vector_store: VectorStoreConfig
     database: DatabaseConfig
+    target_database: TargetDatabaseConfig
 
 
 def load_config(path: Path = CONFIG_PATH) -> AppConfig:

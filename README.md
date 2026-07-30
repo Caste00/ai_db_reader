@@ -1,8 +1,11 @@
 ## PROSSIMI PASSI
-1) fare la parte per estrarre le configurazioni dal documento 
-2) database sqlite
-3) database chormadb
-4) funzioni cosine_similarity
+2) script/import_schemas -> estrae la lista delle tabelle e i suoi dati
+3) rag/indexer -> (index_all_tables e index_table)prendono l'output del punto 2 e lo trasformano in testo, embedding e upsert su chromadb
+4) rag/retriever -> query in lettura
+5) llm/ollama + llm/prompts -> chiamata a ollama che genera la query 
+6) database/query_validator + database/query_executor -> controlla la correttezza della query e la esegue
+7) llm/chat + cli/terminal -> chat e cli con i comandi per la creazione degli embedding delle tabelle
+8) memory/conversation + summarizer + rag/context_builder
 
 
 ## STRUTTURA DEL PROGETTO
@@ -118,3 +121,8 @@ Test automatici (unit test su validator, retriever, ecc.). Da popolare.
   il codice che gestisce X" tra due posti diversi.
 - **`vector_store/` rimossa**: cartella vuota che duplicava concettualmente
   `rag/vector_store.py`.
+
+
+## EXTRA
+* Creare una tabella e il sistema per estrarre i dati con i permessi degli utenti rispetto alle tabelle del database
+* Durante la query_validation controllare se l'utente ha il permesso di vedere i dati di una certa tabella

@@ -13,3 +13,7 @@ vector_store:
 
 database: 
   sqlite_path: ./memory/database.db
+
+target_database:
+  type: sqlite3
+  path: ./test/example_target.db
