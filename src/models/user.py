@@ -10,7 +10,7 @@ class User:
     role: str = ""
     created_at: datetime = None
 
-    def to_dict(selt):
+    def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,

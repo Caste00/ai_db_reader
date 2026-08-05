@@ -115,7 +115,7 @@ def create_user(user: User):
         VALUES (?, ?, ?)
     """, (user.name, user.password_hash, user.role, ))
 
-    user.id = cursor.lastrowid()
+    user.id = cursor.lastrowid
     conn.commit()
     conn.close()
 
@@ -158,3 +158,44 @@ def delete_user(user_id: int):
 
     conn.commit()
     conn.close()
+
+# ----- ROLE PERMISSIONS -----
+
+def grant_table_permission(role: str, table_name: str):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT OR IGNORE INTO role_permissions (permission_role, table_name)
+        VALUES (?, ?)
+    """, (role, table_name, ))
+
+    conn.commit()
+    conn.close()
+
+def revoke_allower_table(role: str, table_name: str):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        DELETE FROM role_permissions
+        WHERE permission_role = ? AND table_name = ?
+    """, (role, table_name))
+
+    conn.commit()
+    conn.close()
+
+def get_allowed_tables(role: str) -> list[str]:
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT table_name
+        FROM role_permissions
+        WHERE permission_role = ?
+    """, (role, ))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    return [row["table_name"] for row in rows]

@@ -1,7 +1,8 @@
 from cli.terminal import launch_cli
-import sys
+from scripts.init_db import init_db
 
 def main():
+    init_db()
     launch_cli()
 
 

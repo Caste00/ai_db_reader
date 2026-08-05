@@ -24,3 +24,11 @@ CREATE TABLE IF NOT EXISTS messages (
 
     FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS role_permissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    permission_role TEXT NOT NULL,
+    table_name TEXT NOT NULL,
+
+    UNIQUE (permission_role, table_name)
+)
