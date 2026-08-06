@@ -1,7 +1,10 @@
+import json
 from rag.indexer import index_table, index_all_tables
 from llm.ollama import generate, LLMGenerationError
 from rag.context_builder import build_prompt, build_schema_context
 from rag.retriever import retrieve
+from database.query_executor import execute_queries
+from llm.chat import ask
 
 def launch_cli():
     running = True
@@ -21,13 +24,6 @@ def launch_cli():
         elif(user_message == "/bye" or user_message == "/exit"):
             running = False
         else:
-            schema_context = build_schema_context(retrieve(user_message))
-            messages = build_prompt(user_message, schema_context)
-
-            try:
-                raw_response = generate(messages)
-            except LLMGenerationError as e:
-                print(f"Errore LLM: {e.message}")
-                continue
-
-            print(raw_response)
+            explanation, results = ask(user_message)
+            if explanation:
+                print(f"\n{explanation}\n")

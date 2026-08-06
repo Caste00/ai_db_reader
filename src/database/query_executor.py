@@ -8,10 +8,10 @@ from database.query_result import QueryResult
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_MAX_ROW = 200
+DEFAULT_MAX_ROWS = 200
 DEFALUT_TIMEOUT_SECONDS = 5.0
 
-def execute_queries (queries: list[str], connector: DatabaseConnector | None = None, max_rows: int = DEFAULT_MAX_ROWS, timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS) -> list[QueryResult]:
+def execute_queries (queries: list[str], connector: DatabaseConnector | None = None, max_rows: int = DEFAULT_MAX_ROWS, timeout_seconds: float = DEFALUT_TIMEOUT_SECONDS) -> list[QueryResult]:
     own_connector = connector is None
     if own_connector: 
         connector = get_connector()
