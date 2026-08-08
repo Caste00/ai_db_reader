@@ -16,12 +16,14 @@ class EmbeddingConfig(BaseModel):
 class VectorStoreConfig(BaseModel):
     path: str
     top_k: int
+    distance_threshold: float
 
 class DatabaseConfig(BaseModel):
     sqlite_path: str
 
 class TargetDatabaseConfig(BaseModel):
     model_config = ConfigDict(extra="allow")   
+    url: str
     type: str
 
 class AppConfig(BaseModel):

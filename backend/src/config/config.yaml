@@ -10,10 +10,11 @@ embedding:
 vector_store:
   path: ./rag/chroma_db
   top_k: 5
+  distance_threshold: 0.5
 
 database: 
   sqlite_path: ./memory/database.db
 
 target_database:
   type: sqlite3
-  path: ./test/example_target.db
+  url: sqlite:///./test/example_target.db

@@ -5,6 +5,7 @@
 4) Salvataggio di conversazioni e chat 
 5) Uso di permessi per decidere a quali dati ogni utente ha accesso
 6) Frontend usando React e FastAPI
+7) Deployment su docker
 
 
 ## STRUTTURA DEL PROGETTO
@@ -74,3 +75,7 @@ project/
 * Cambiare la parte llm/ollama -> generate, invece che importarlo da li devo fare come ho fatto per i database in modo da poter usare altre fonti senza modificare il codice, implementare un' interfaccia comune 
 * Interfaccia grafica online (il server che ospita ollama mette in rete anche un'interfaccia web per interagire con l'ia)
 * In build_schema_context posso usare la distanza per scartare le tabelle pescate non pertinenti, sotto una certa soglia le scarto automaticamente
+
+
+## LIMITI DA RISOLVERE
+In rag/retriever se la ricerca di una query trova una colonna rilevante ma la tabella a cui appartiene non è tra quelle più simili, la tabella viene esclusa nonostante il campo all'interno sarebbe stato simili alla domanda utente. Il motivo è che il ciclo finale itera solo su table_meta. Quello che devo fare è promuovere le tabelle che sono trovato solo via colonna

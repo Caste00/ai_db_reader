@@ -1,5 +1,5 @@
 import json
-from llm.ollama import generate
+from llm.providers.ollama import generate
 from models.table_schemas import TableSchema
 from models.column_schemas import ColumnSchema
 

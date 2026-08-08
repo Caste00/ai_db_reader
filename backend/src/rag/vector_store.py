@@ -6,7 +6,7 @@ class VectorStore:
 
     def __init__(self, collection_name: str):
         self.client = chromadb.PersistentClient(path=config.vector_store.path)
-        self.collection = self.client.get_or_create_collection(name=collection_name)
+        self.collection = self.client.get_or_create_collection(name=collection_name, metadata={"hnsw:space": "cosine"})
 
     def upsert(self, ids: list[str], documents: list[str], embeddings: list[list[float]], metadatas: list[dict]):
         self.collection.upsert(

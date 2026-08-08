@@ -32,10 +32,3 @@ class DatabaseConnector(ABC):
     @abstractmethod
     def execute_query(self, query: str, params: tuple = ()) -> list[dict]:
         """Execute a SELECT query and return the rows as a list of dictionaries"""
-
-
-    @abstractmethod
-    def analyze_query(self, query: str, params: tuple = ()) -> list[dict]:
-        """
-            Analyzes the query without returning the data, using the engine's native tools (e.g., EXPLAIN) instead of text parsing.
-        """
