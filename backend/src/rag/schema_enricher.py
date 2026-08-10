@@ -2,36 +2,25 @@ import json
 from llm.providers.ollama import generate
 from models.table_schemas import TableSchema
 from models.column_schemas import ColumnSchema
+from utils.json_parsing import strip_code_fences
+from utils.prompt import get_prompt
 
-ENRICH_PROMPT = """Given this SQL table, generate a description of the table and, for each column, a description plus possible synonyms/alternative terms that a user might use in natural language to refer to that column.
-
-Table: {table_name}
-Columns: {columns}
-Foreign key: {foreign_keys}
-
-Respond ONLY with a valid JSON in this format, nothing else (no markdown, no text outside the JSON):
-{{
-  "table_description": "...",
-  "columns": {{
-    "column_name": {{"description": "...", "synonyms": ["...", "..."]}}
-  }}
-}}
-"""
 
 def enrich_table(table_schema: TableSchema, column_schemas: list[ColumnSchema]) -> tuple[TableSchema, list[ColumnSchema]]:
     """return TableSchema and a list of ColumnSchema with the description"""
-    prompt = ENRICH_PROMPT.format(
+    prompt = get_prompt("schema_enrichment",
         table_name=table_schema.table_name,
         columns=table_schema.columns,
         foreign_keys=table_schema.foreign_keys,
     )
 
-    raw_response = generate(prompt)
+    raw_response = strip_code_fences(generate(prompt, json_mode=True))
 
     try:
         enriched = json.loads(raw_response)
     except json.JSONDecodeError:
         # fallback: nessun arricchimento, gli oggetti restano con description vuota
+        print(f"Error with {table_schema.table_name}: raw response was {raw_response}")
         return table_schema, column_schemas
 
     table_schema.description = enriched.get("table_description", "")
@@ -43,4 +32,3 @@ def enrich_table(table_schema: TableSchema, column_schemas: list[ColumnSchema]) 
         column.synonyms = col_info.get("synonyms", [])
 
     return table_schema, column_schemas
-        

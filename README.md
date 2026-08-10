@@ -1,5 +1,8 @@
 ## PROSSIMI PASSI
-1) Uso di sqlalchemy per la connessione e interrogazione dei database
+1.1) Controllo della description quando non viene generata
+1.2) Tarare distance_threshold
+1.3) llm/providers/chat.py -> tutto il modello che risponde a una domanda
+1.4) Mettere i prompt nel file prompts.yaml per poterli modificare velocemente senza accedere al codice
 2) Uso di un interfaccia comune per poter usare più providers come llm
 3) Controllo correttezza query effettuato usando una libreria 
 4) Salvataggio di conversazioni e chat 
@@ -75,6 +78,7 @@ project/
 * Cambiare la parte llm/ollama -> generate, invece che importarlo da li devo fare come ho fatto per i database in modo da poter usare altre fonti senza modificare il codice, implementare un' interfaccia comune 
 * Interfaccia grafica online (il server che ospita ollama mette in rete anche un'interfaccia web per interagire con l'ia)
 * In build_schema_context posso usare la distanza per scartare le tabelle pescate non pertinenti, sotto una certa soglia le scarto automaticamente
+
 
 
 ## LIMITI DA RISOLVERE

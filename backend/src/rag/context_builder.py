@@ -1,5 +1,8 @@
 from typing import Any
 from utils.config import config
+from utils.prompt import get_prompt
+from database.query_result import QueryResult
+
 
 def _filter_by_distance(metadatas: list[dict], documents: list[str], distances: list[float], threshold: float) -> tuple[list[dict], list[str]]:
     keep_meta, keep_doc = [], []
@@ -61,24 +64,26 @@ def build_schema_context(retrieval_result: dict[str, Any]) -> str:
 
 def build_prompt(question: str, schema_context: str) -> list[dict]:
     """Builder of message (system + user) for the query generation"""
-    system_prompt = f"""You are an SQL expert. Generate one or more valid SQL queries to answer
-    the user's question, based ONLY on the database schema below. Do not invent tables or columns 
-    that are not listed.
+    system_prompt = get_prompt("sql_generation.system", schema_context=schema_context)
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": question},
+    ]
 
-    DATABASE SCHEMA:
-    {schema_context}
 
-    Output rules:
+def build_answer_prompt(question: str, results: list["QueryResult"]) -> list[dict]:
+    successful = [r for r in results if r.success]
 
-    1) Respond ONLY with valid JSON, without markdown or backticks:
-        {{"queries": ["<query1>", "<query2>", ...], "explanation": "<short explanation>"}}
+    if not successful:
+        errors = "\n".join(r.error for r in results if r.error)
+        data_block = f"None of the queries succeeded:\n{errors}"
+    else:
+        data_block = "\n\n".join(
+            f"Query: {r.query}\nResults ({r.row_count} rows): {r.rows}"
+            for r in successful
+        )
 
-    2) Table/column names in the queries must remain exactly as in the schema (standard SQL).
-
-    3) The "explanation" field must be written in the SAME language as the user's question.
-
-    4) If the question is ambiguous or cannot be answered with the provided schema, explain
-        the reason in "explanation" and leave "queries" empty."""
+    system_prompt = get_prompt("answer_synthesis.system", data_block=data_block)
 
     return [
         {"role": "system", "content": system_prompt},
