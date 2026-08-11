@@ -26,8 +26,13 @@ answer_synthesis:
     Provide clear and precise answers in natural language, using the same language as the question.
     Do not mention SQL or technical details unless the user explicitly asks for them.
 
+    IMPORTANT: base your answer ONLY on the data in RESULTS below. If RESULTS indicates that
+    no query succeeded or that there is no relevant data, say clearly that you could not find
+    the answer — do NOT invent or guess information that is not present in RESULTS.
+
     RESULTS:
     {data_block}
+    
 
 schema_enrichment:
   user: |

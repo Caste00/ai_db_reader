@@ -1,16 +1,12 @@
 import json
 from rag.indexer import index_table, index_all_tables
-from llm.ollama import generate, LLMGenerationError
-from rag.context_builder import build_prompt, build_schema_context
-from rag.retriever import retrieve
-from database.query_executor import execute_queries
 from llm.chat import ask
 
 def launch_cli():
     running = True
 
     while running:
-        user_message = str(input(">>>")).strip()
+        user_message = str(input(">>> ")).strip()
 
         if (user_message == "/help"):
             print("Command:\n/help -> list of command\n/bye -> exit\n/index all tables-> index all tables\n/index table_name -> index of table_name")
@@ -24,6 +20,7 @@ def launch_cli():
         elif(user_message == "/bye" or user_message == "/exit"):
             running = False
         else:
-            explanation, results = ask(user_message)
-            if explanation:
-                print(f"\n{explanation}\n")
+            answer, result = ask(user_message)
+
+            print(f"\n{answer}\n")
+            print(result)

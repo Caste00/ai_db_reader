@@ -83,3 +83,5 @@ project/
 
 ## LIMITI DA RISOLVERE
 In rag/retriever se la ricerca di una query trova una colonna rilevante ma la tabella a cui appartiene non è tra quelle più simili, la tabella viene esclusa nonostante il campo all'interno sarebbe stato simili alla domanda utente. Il motivo è che il ciclo finale itera solo su table_meta. Quello che devo fare è promuovere le tabelle che sono trovato solo via colonna
+
+Allucinazioni: se la query fallisce non deve rispondere, deve riprovare con l'errore a generarne una nuova, se anche così non dovesse andare a buon fine non deve rispondere.

@@ -26,12 +26,16 @@ class TargetDatabaseConfig(BaseModel):
     url: str
     type: str
 
+class AskConfig(BaseModel):
+    max_attempts: int
+
 class AppConfig(BaseModel):
     llm: LLMConfig
     embedding: EmbeddingConfig
     vector_store: VectorStoreConfig
     database: DatabaseConfig
     target_database: TargetDatabaseConfig
+    ask: AskConfig
 
 
 def load_config(path: Path = CONFIG_PATH) -> AppConfig:
