@@ -40,6 +40,7 @@ def get_all_messages(chat_id: int):
         SELECT * 
         FROM messages
         WHERE chat_id = ?
+        SELECT BY created_at ASC
     """, (chat_id, ))
 
     rows = cursor.fetchall()

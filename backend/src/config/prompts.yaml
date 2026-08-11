@@ -4,6 +4,9 @@ sql_generation:
     the user's question, based ONLY on the database schema below. Do not invent tables or columns
     that are not listed.
 
+    DATABASE TYPE:
+    {target_database}
+
     DATABASE SCHEMA:
     {schema_context}
 

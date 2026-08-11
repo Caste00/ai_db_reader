@@ -29,6 +29,9 @@ class TargetDatabaseConfig(BaseModel):
 class AskConfig(BaseModel):
     max_attempts: int
 
+class MessageConfig(BaseModel):
+    context_window: int
+
 class AppConfig(BaseModel):
     llm: LLMConfig
     embedding: EmbeddingConfig
@@ -36,6 +39,7 @@ class AppConfig(BaseModel):
     database: DatabaseConfig
     target_database: TargetDatabaseConfig
     ask: AskConfig
+    message: MessageConfig
 
 
 def load_config(path: Path = CONFIG_PATH) -> AppConfig:

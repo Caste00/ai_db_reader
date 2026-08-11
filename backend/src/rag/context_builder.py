@@ -64,7 +64,7 @@ def build_schema_context(retrieval_result: dict[str, Any]) -> str:
 
 def build_prompt(question: str, schema_context: str) -> list[dict]:
     """Builder of message (system + user) for the query generation"""
-    system_prompt = get_prompt("sql_generation.system", schema_context=schema_context)
+    system_prompt = get_prompt("sql_generation.system", target_database=config.target_database.type , schema_context=schema_context)
     return [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": question},

@@ -23,4 +23,3 @@ def launch_cli():
             answer, result = ask(user_message)
 
             print(f"\n{answer}\n")
-            print(result)
