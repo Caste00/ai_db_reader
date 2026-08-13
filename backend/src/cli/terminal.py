@@ -8,6 +8,9 @@ def launch_cli():
     while running:
         user_message = str(input(">>> ")).strip()
 
+        if not user_message:
+            continue
+
         if user_message[0] == "\\":
             message = user_message[1:].split(" ")
             if len(message) == 2 and message[0] == "index":
@@ -26,3 +29,4 @@ def launch_cli():
             answer, result = ask(user_message)
 
             print(f"\n{answer}\n")
+            

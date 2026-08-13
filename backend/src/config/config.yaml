@@ -1,6 +1,6 @@
 llm: 
   provider: ollama
-  model: qwen2.5-coder:3b
+  model: phi4-mini:latest
   ollama_host: https://localhost:11434
 
 embedding: 
@@ -9,7 +9,7 @@ embedding:
 
 vector_store:
   path: ./rag/chroma_db
-  top_k: 5
+  top_k: 7
   distance_threshold: 0.8
 
 database: 

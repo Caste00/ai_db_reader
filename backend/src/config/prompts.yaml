@@ -22,6 +22,10 @@ sql_generation:
     4) If the question is ambiguous or cannot be answered with the provided schema, explain
     the reason in "explanation" and leave "queries" empty.
 
+    5) Queries must be fully executable as written — never use placeholder values
+    like <Your_ID> or <value>. If you need a specific id, write a real subquery
+    instead.
+
 
 answer_synthesis:
   system: |
