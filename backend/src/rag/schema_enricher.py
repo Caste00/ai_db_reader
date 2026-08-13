@@ -8,7 +8,7 @@ from utils.prompt import get_prompt
 
 def enrich_table(table_schema: TableSchema, column_schemas: list[ColumnSchema]) -> tuple[TableSchema, list[ColumnSchema]]:
     """return TableSchema and a list of ColumnSchema with the description"""
-    prompt = get_prompt("schema_enrichment",
+    prompt = get_prompt("schema_enrichment.user",
         table_name=table_schema.table_name,
         columns=table_schema.columns,
         foreign_keys=table_schema.foreign_keys,

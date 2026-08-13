@@ -8,17 +8,20 @@ def launch_cli():
     while running:
         user_message = str(input(">>> ")).strip()
 
-        if (user_message == "/help"):
-            print("Command:\n/help -> list of command\n/bye -> exit\n/index all tables-> index all tables\n/index table_name -> index of table_name")
-        elif(user_message == "/index all tables"):
-            print("inidicizzazione di tutte le tabelle\nQuesta operazione potrebbe richiedere diversi minuti")
-            index_all_tables()
-            print("Completato")
-        #elif(user_message.startswith("/index ")):
-            # TODO
-            #print("Funzione ancora da implementare")
-        elif(user_message == "/bye" or user_message == "/exit"):
-            running = False
+        if user_message[0] == "\\":
+            message = user_message[1:].split(" ")
+            if len(message) == 2 and message[0] == "index":
+                print(f"Indexing {message[1]}\nThis operation may take some minutes")
+                index_table(message[1])
+                print("Finish")
+            elif user_message[1:] == "index all tables":
+                print("Indexing all tables\nThis operation may take several minutes")
+                index_all_tables()
+                print("Finish")
+            elif message[0] == "bye" or message[0] == "exit":
+                running = False
+            else:
+                print("Command:\n\\help -> list of command\n\\bye -> exit\n\\index all tables-> index all tables\n\\index table_name -> index of table_name")
         else:
             answer, result = ask(user_message)
 
