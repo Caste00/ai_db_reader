@@ -24,3 +24,7 @@ ask:
 
 message:
   context_window: 5
+
+auth:
+  secred_key: "qui-dentro-ci-va-una-stringa-lunga-e-casuale"
+  access_token_expire_minutes: 60

@@ -32,6 +32,10 @@ class AskConfig(BaseModel):
 class MessageConfig(BaseModel):
     context_window: int
 
+class AuthConfig(BaseModel):
+    secred_key: str
+    access_token_expire_minutes: int
+
 class AppConfig(BaseModel):
     llm: LLMConfig
     embedding: EmbeddingConfig
@@ -40,6 +44,7 @@ class AppConfig(BaseModel):
     target_database: TargetDatabaseConfig
     ask: AskConfig
     message: MessageConfig
+    auth: AuthConfig
 
 
 def load_config(path: Path = CONFIG_PATH) -> AppConfig:

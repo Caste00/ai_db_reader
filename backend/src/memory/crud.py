@@ -107,6 +107,44 @@ def get_all_chats(user_id: int):
 
 # ----- USER -----
 
+def get_user_by_id(user_id: int) -> User | None:
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT * 
+        FROM users
+        WHERE id = ?
+    """, (user_id, ))
+
+    row = cursor.fetchone()
+    conn.close()
+
+    if row is None:
+        return None
+
+    return User.from_row(row)
+
+
+def get_user_by_surname(username: str) -> User | None:
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT * 
+        FROM users
+        WHERE username = ?
+    """, (username, ))
+
+    row = cursor.fetchone()
+    conn.close()
+
+    if row is None:
+        return None
+
+    return User.from_row(row)
+
+
 def create_user(user: User):
     conn = get_connection()
     cursor = conn.cursor()
